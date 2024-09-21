@@ -13,10 +13,6 @@ const s3Client = new S3Client({
 
 async function uploadFileToS3(file: any, filename: string): Promise<string> {
   const fileBuffer = file;
-  // const image = await sharp(fileBuffer)
-  // .resize({ width: 800 })
-  // .jpeg()
-  // .toBuffer()
   const image = await Jimp.read(fileBuffer).then((image) => {
     image.resize(800, 800);
     return image.getBufferAsync("image/jpeg");

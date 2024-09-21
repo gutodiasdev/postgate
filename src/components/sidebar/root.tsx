@@ -26,12 +26,12 @@ const routes = [
     href: "/agendamentos",
     color: "text-[#5528ff]"
   },
-  // {
-  //   label: "Disparos Rápidos",
-  //   icon: Zap ,
-  //   href: "/disparos-rapidos",
-  //   color: "text-[#5528ff]"
-  // },
+  {
+    label: "Disparos Rápidos",
+    icon: Zap ,
+    href: "/disparos-rapidos",
+    color: "text-[#5528ff]"
+  },
   // {
   //   label: "Redirecionadores",
   //   icon: Split,

@@ -52,7 +52,6 @@ export default function Page() {
       });
       return;
     }
-
     setList([...list, group]);
     setGroupsInfo([...groupsInfo, group]);
   }
