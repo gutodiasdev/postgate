@@ -398,7 +398,6 @@ export type SendingList = {
 
 export type CreateRedirectorInput = {
   title: string;
-  descriptiont?: string;
 }
 
 export type Instance = {
@@ -443,6 +442,8 @@ export type Workflow = {
   description?: string;
   nodes?: string;
   edges?: string;
+  createdAt: string;
+  updatedAt: string;
 }
 
 export type Scheduling = {
