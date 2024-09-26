@@ -1,4 +1,5 @@
 import { Topbar } from "@/components/navigation/dashboard/top-bar";
+import { PermissionGateway } from "@/components/PermissionGateway";
 import { Sidebar } from "@/components/sidebar";
 import React from "react";
 
@@ -10,7 +11,9 @@ export default async function DashboardLayout({ children }: { children: React.Re
         <Sidebar.Root />
       </div>
       <main className="md:pl-72">
-        {children}
+        <PermissionGateway permissions={["FREE"]}>
+          {children}
+        </PermissionGateway>
       </main>
     </div>
   )

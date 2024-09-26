@@ -18,12 +18,10 @@ import useStore from "@/hooks/useStore";
 
 type CreateWorkflowInput = {
   title: string;
-  descriptiont?: string;
 }
 
 const schema = z.object({
   title: z.string().min(1, "O título não pode estar vazio."),
-  description: z.string().optional()
 });
 
 type createRedirectorSchema = z.infer<typeof schema>;
@@ -42,8 +40,11 @@ export function CreateWorkflowForm({ onClose }: CreateWorkflowFormProps) {
 
   const mutation = useMutation({
     mutationFn: async (values: CreateWorkflowInput) => {
-     const { data } = await api.post("/resources/workflows", values, { authorization: true });
-     return data;
+      const { data } = await api.post("/resources/workflows", {
+        ...values,
+        description: "workflow"
+      }, { authorization: true });
+      return data;
     },
     onSuccess: (data) => {
       toast({
@@ -76,19 +77,6 @@ export function CreateWorkflowForm({ onClose }: CreateWorkflowFormProps) {
               <FormLabel>Título</FormLabel>
               <FormControl>
                 <Input placeholder="Workflow de mensagens em massa." {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="description"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Descrição</FormLabel>
-              <FormControl>
-                <Input placeholder="Descrição sobre o workflow" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>

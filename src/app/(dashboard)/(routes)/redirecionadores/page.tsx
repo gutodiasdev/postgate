@@ -2,7 +2,7 @@
 
 import { Copy, Group, MousePointerClick, Plus, XCircle } from "lucide-react";
 import Link from "next/link";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { RotatingLines } from "react-loader-spinner";
 import { Tooltip } from "@/components/tooltip";
 import { Button } from "@/components/ui/button";
@@ -10,42 +10,36 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/components/ui/use-toast";
 import { copyToClipboard } from "@/utils/copy-to-clipboard";
-import { Sheet } from "@/components/sheet";
 import { CreateRedirectorForm } from "@/components/forms/create-redirector";
-import { useSheet } from "@/hooks/use-sheet";
 import { useRedirectors } from "@/hooks/use-redirectors";
+import { PageHeader } from "@/components/common/page-header";
+import { Skeleton } from "@/components/ui/skeleton";
+import { Dialog, DialogContent } from "@/components/ui/dialog";
 
 export default function Page() {
   const ref = useRef<HTMLInputElement>(null);
   const { toast } = useToast();
-  const { onClose, onOpen } = useSheet();
+  const [open, setOpen] = useState<boolean>(false);
   const { data, isLoading, isError, refetch } = useRedirectors();
-
-  const handleCopyShortlink = () => {
-    if (ref.current) {
-      copyToClipboard(ref.current.value);
-      toast({
-        title: "Link copiado com sucesso!",
-        variant: "default",
-      });
-    }
-  }
 
   if (isLoading) {
     return (
       <section className="space-y-4 md:p-8">
-        <h1 className="text-xl font-bold text-gray-800 p-4">
+        <PageHeader>
           Redirecionadores
-        </h1>
-        <div className="w-full h-96 flex items-center justify-center my-8 ">
-          <RotatingLines
-            visible={true}
-            width="80"
-            strokeWidth="5"
-            strokeColor="#5528ff"
-            animationDuration="0.75"
-            ariaLabel="rotating-lines-loading"
-          />
+        </PageHeader>
+        <div className="my-4 grid md:grid-cols-5 gap-4">
+          <div className="border-2 p-2 rounded-md flex flex-col gap-2 md:h-80 border-gray-400 border-dashed hover:cursor-pointer hover:bg-slate-100 transition-all ease-in-out">
+            <div className="flex items-center justify-center h-full w-full">
+              <div className="flex flex-col items-center">
+                <Plus />
+                <span>
+                  Criar redirecionador
+                </span>
+              </div>
+            </div>
+          </div>
+          {Array.from({ length: 4 }).map((item, index) => (<Skeleton key={index} className="p-4 rounded-md md:h-80 bg-slate-200" />))}
         </div>
       </section>
     )
@@ -54,9 +48,9 @@ export default function Page() {
   if (isError) {
     return (
       <section className="space-y-4 md:p-8">
-        <h1 className="text-xl font-bold text-gray-800 p-4">
+        <PageHeader>
           Redirecionadores
-        </h1>
+        </PageHeader>
         <div className="w-full h-96 flex flex-col items-center justify-center my-8 gap-y-4">
           <XCircle />
           <span>Ocorreu algum erro, tente novamente</span>
@@ -69,69 +63,44 @@ export default function Page() {
   }
 
   return (
-    <section className="space-y-4 md:p-8">
-      <div className="flex items-center justify-between">
-        <h1 className="text-xl font-bold text-gray-800">
-          Redirecionadores
-        </h1>
-        <Button variant="default" size="icon" onClick={onOpen}>
-          <Plus />
-        </Button >
-        <Sheet.Root>
-          <CreateRedirectorForm onClose={onClose} />
-        </Sheet.Root>
-      </div>
-      <div className="grid gap-4 md:grid-cols-1 lg:grid-cols-2 2xl:grid-cols-3 mt-4">
-        {
-          data.length === 0 ?
-            (
-              <section className="p-4">
-                <div className="w-full flex flex-col items-center justify-center my-8 gap-y-4">
-                  <span>Você ainda não possui redirecionadores</span>
-                  <Button variant="outline" onClick={onOpen}>
-                    Adicionar primeiro redirecionador
-                  </Button>
+    <>
+      <section className="space-y-4 md:p-8">
+        <div className="flex items-center justify-between">
+          <PageHeader>
+            Redirecionadores
+          </PageHeader>
+        </div>
+        <div className="grid gap-4 xl:grid-cols-4 2xl:grid-cols-5">
+          <div className="border-2 p-2 rounded-md flex flex-col gap-2 md:h-80 border-gray-400 border-dashed hover:cursor-pointer hover:bg-slate-100 transition-all ease-in-out" onClick={() => setOpen(true)}>
+            <div className="flex items-center justify-center h-full w-full">
+              <div className="flex flex-col items-center">
+                <Plus />
+                <span>
+                  Criar redirecionador
+                </span>
+              </div>
+            </div>
+          </div>
+          {
+            data.map((redirector: any) => (
+              <Link key={redirector.id} href={`/redirecionadores/${redirector.id}`}>
+                <div className="border p-4 rounded-md md:h-80 hover:bg-slate-50 transition-all ease-in-out">
+                  <div className="text-center h-full place-content-center">
+                    <h2 className="text-xl font-medium">
+                      {redirector.title}
+                    </h2>
+                  </div>
                 </div>
-              </section>
-            ) :
-            data?.map((redirector: any) => {
-              return (
-                <Card key={redirector.id}>
-                  <CardHeader>
-                    <Link href={`/redirecionadores/${redirector.id}`}>
-                      <CardTitle>
-                        {redirector.title}
-                      </CardTitle>
-                    </Link>
-
-                    <CardDescription>
-                      {redirector.description}
-                    </CardDescription>
-                  </CardHeader>
-                  <CardContent className="flex flex-col gap-y-4 md:flex-row md:items-center md:justify-between">
-                    <div className="">
-                      <Tooltip.Root icon={<Group className="h-4 w-4" />} data={redirector.currentGroup}>
-                        <span>
-                          Grupos
-                        </span>
-                      </Tooltip.Root>
-                      <Tooltip.Root icon={<MousePointerClick className="h-4 w-4" />} data={redirector.timesClicked}>
-                        <span>
-                          Cliques
-                        </span>
-                      </Tooltip.Root>
-                    </div>
-                    <div className="flex items-center gap-x-1">
-                      <Input type="text" value={redirector.redirectorLink} readOnly ref={ref} />
-                      <Button variant="outline" onClick={handleCopyShortlink}>
-                        <Copy />
-                      </Button>
-                    </div>
-                  </CardContent>
-                </Card>
-              )
-            })}
-      </div>
-    </section>
+              </Link>
+            ))
+          }
+        </div>
+      </section>
+      <Dialog open={open} onOpenChange={setOpen}>
+        <DialogContent>
+          <CreateRedirectorForm onClose={setOpen} />
+        </DialogContent>
+      </Dialog>
+    </>
   )
 }

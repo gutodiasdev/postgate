@@ -13,13 +13,12 @@ import { useCreateRedirector } from "@/hooks/use-redirectors";
 
 const schema = z.object({
   title: z.string().min(1, "O título não pode estar vazio."),
-  description: z.string().optional()
 });
 
 type createRedirectorSchema = z.infer<typeof schema>;
 
 type CreateRedirectorFormProps = {
-  onClose: () => void;
+  onClose: (value: boolean) => void;
 }
 
 export function CreateRedirectorForm({ onClose }: CreateRedirectorFormProps) {
@@ -43,20 +42,7 @@ export function CreateRedirectorForm({ onClose }: CreateRedirectorFormProps) {
             <FormItem>
               <FormLabel>Título</FormLabel>
               <FormControl>
-                <Input placeholder="Redirecionador de grupos de desconto" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="description"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Descrição</FormLabel>
-              <FormControl>
-                <Input placeholder="Redirecionador com objetivo" {...field} />
+                <Input placeholder="Ex.: Redirecionador de grupos de desconto..." {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>

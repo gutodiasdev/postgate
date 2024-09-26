@@ -1,6 +1,6 @@
 "use client";
 
-import { Edit, Plus, Trash, XCircle } from "lucide-react";
+import { Plus, XCircle } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 
 import { CreateWorkflowForm } from "@/components/forms/create-workflow";
@@ -8,7 +8,6 @@ import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { ADD_WORKFLOW_MODAL } from "@/config";
 import { useModal } from "@/hooks/use-modal";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import Link from "next/link";
 import { api } from "@/lib/axios";
 import useStore from "@/hooks/useStore";
