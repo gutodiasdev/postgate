@@ -3,7 +3,6 @@ import {
   useQuery,
   useQueryClient
 } from "@tanstack/react-query";
-import axios from "axios";
 
 import { toast } from "@/components/ui/use-toast";
 import { CreateRedirectorInput } from "@/@types";
@@ -31,7 +30,7 @@ const fetchSingleRedirector = async (redirectorId: string) => {
   return data;
 }
 
-export const userSingleRedirector = (redirectorId: string) => {
+export const useSingleRedirector = (redirectorId: string) => {
   return useQuery({
     queryKey: ["redirectors", redirectorId],
     queryFn: async () => await fetchSingleRedirector(redirectorId),

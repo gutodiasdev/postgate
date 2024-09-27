@@ -3,7 +3,6 @@
 import { WappGroup } from "@/@types";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import {
   Popover,
   PopoverContent,
@@ -22,7 +21,7 @@ import {
 import { toast } from "@/components/ui/use-toast";
 import { useInstances } from "@/hooks/instances/use-instances";
 import { useInstanceGroups } from "@/hooks/use-instance-groups";
-import { userSingleRedirector, useUpdateRedirectorGroups } from "@/hooks/use-redirectors";
+import { useSingleRedirector, useUpdateRedirectorGroups } from "@/hooks/use-redirectors";
 import { cn } from "@/lib/utils";
 import { copyToClipboard } from "@/utils/copy-to-clipboard";
 import { Check, ChevronLeft, CopyIcon, Pencil, Plus, X, XCircle } from "lucide-react";
@@ -39,7 +38,7 @@ export default function Page() {
   const [disableAddGroupButton, setDisableAddGroupButton] = useState(false);
   const [popoverOpen, setPopoverOpen] = useState(false);
   const { id } = useParams() as { id: string };
-  const redirectorQuery = userSingleRedirector(id);
+  const redirectorQuery = useSingleRedirector(id);
   const instancesQuery = useInstances();
   const query = useInstanceGroups(instanceId);
   const updateRedirectorGroupsMutation = useUpdateRedirectorGroups(id);
