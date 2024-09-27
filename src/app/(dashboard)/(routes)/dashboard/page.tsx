@@ -20,50 +20,48 @@ export default async function Page() {
   }).then(res => res.json()) as DashboardResult;
 
   return (
-    <PermissionGateway permissions={["FREE"]}>
-      <section className="space-y-4 md:p-8">
-        <PageHeader>
-          Dashboard
-        </PageHeader>
-        <div className="grid grid-cols-12 gap-x-4 gap-y-4">
-          <Card className="md:col-span-4 w-full">
-            <CardHeader>
-              <CardTitle>
-                Agendamentos Ativos
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <span className="text-2xl font-semibold">
-                {data.pendingAppointments}
-              </span>
-            </CardContent>
-          </Card>
-          <Card className="md:col-span-4 w-full">
-            <CardHeader>
-              <CardTitle>
-                Agendamentos Finalizados
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <span className="text-2xl font-semibold">
-                {data.completedAppointments}
-              </span>
-            </CardContent>
-          </Card>
-          <Card className="md:col-span-4 w-full">
-            <CardHeader>
-              <CardTitle>
-                Grupos
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <span className="text-2xl font-semibold">
-                {data.groupsCount}
-              </span>
-            </CardContent>
-          </Card>
-        </div>
-      </section>
-    </PermissionGateway>
+    <section className="space-y-4 md:p-8">
+      <PageHeader>
+        Dashboard
+      </PageHeader>
+      <div className="grid grid-cols-12 gap-x-4 gap-y-4">
+        <Card className="md:col-span-4 w-full">
+          <CardHeader>
+            <CardTitle>
+              Agendamentos Ativos
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <span className="text-2xl font-semibold">
+              {data.pendingAppointments}
+            </span>
+          </CardContent>
+        </Card>
+        <Card className="md:col-span-4 w-full">
+          <CardHeader>
+            <CardTitle>
+              Agendamentos Finalizados
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <span className="text-2xl font-semibold">
+              {data.completedAppointments}
+            </span>
+          </CardContent>
+        </Card>
+        <Card className="md:col-span-4 w-full">
+          <CardHeader>
+            <CardTitle>
+              Grupos
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <span className="text-2xl font-semibold">
+              {data.groupsCount}
+            </span>
+          </CardContent>
+        </Card>
+      </div>
+    </section>
   )
 }

@@ -378,6 +378,11 @@ export type WappGroup = {
   whatsappName: string;
   isGroup: boolean;
   whatsappSessionId: string;
+  updatedAt: string;
+  createdAt: string;
+  participants: null | number;
+  groupInviteCode: null | string;
+  groupInviteLink: null | string;
 }
 
 export type WappChat = {
@@ -398,7 +403,6 @@ export type SendingList = {
 
 export type CreateRedirectorInput = {
   title: string;
-  descriptiont?: string;
 }
 
 export type Instance = {
@@ -443,6 +447,8 @@ export type Workflow = {
   description?: string;
   nodes?: string;
   edges?: string;
+  createdAt: string;
+  updatedAt: string;
 }
 
 export type Scheduling = {

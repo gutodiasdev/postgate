@@ -30,7 +30,7 @@ type CreateWorkflowFormProps = {
   onClose: (modal: string) => void;
 }
 
-export function CreateWorkflowForm({ onClose }: CreateWorkflowFormProps) {
+export function CreateMessagesListForm({ onClose }: CreateWorkflowFormProps) {
   const { toast } = useToast();
   const query = useQueryClient();
   const form = useForm<createRedirectorSchema>({
@@ -42,16 +42,16 @@ export function CreateWorkflowForm({ onClose }: CreateWorkflowFormProps) {
     mutationFn: async (values: CreateWorkflowInput) => {
       const { data } = await api.post("/resources/workflows", {
         ...values,
-        description: "workflow"
+        description: "messages_list"
       }, { authorization: true });
       return data;
     },
     onSuccess: (data) => {
       toast({
-        title: "Workflow criado com sucesso!",
+        title: "Lista de Mensagens criada!",
         variant: "default",
       });
-      query.invalidateQueries({ queryKey: ["workflows", store?.user?.id] });
+      query.invalidateQueries({ queryKey: ["messages-lists", store?.user?.id] });
       onClose(ADD_WORKFLOW_MODAL);
     },
     onError: (error: any) => {
@@ -76,7 +76,7 @@ export function CreateWorkflowForm({ onClose }: CreateWorkflowFormProps) {
             <FormItem>
               <FormLabel>Título</FormLabel>
               <FormControl>
-                <Input placeholder="Workflow de mensagens em massa." {...field} />
+                <Input placeholder="Ex.: Promoções BlackFriday" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -91,7 +91,7 @@ export function CreateWorkflowForm({ onClose }: CreateWorkflowFormProps) {
             animationDuration="0.75"
             ariaLabel="rotating-lines-loading"
           />}
-          Criar workflow
+          Criar lista de mensagens
         </Button>
       </form>
     </Form>
