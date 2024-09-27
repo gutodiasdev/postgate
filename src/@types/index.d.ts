@@ -378,6 +378,11 @@ export type WappGroup = {
   whatsappName: string;
   isGroup: boolean;
   whatsappSessionId: string;
+  updatedAt: string;
+  createdAt: string;
+  participants: null | number;
+  groupInviteCode: null | string;
+  groupInviteLink: null | string;
 }
 
 export type WappChat = {

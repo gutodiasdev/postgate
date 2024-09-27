@@ -3,6 +3,7 @@
 import { WappGroup } from "@/@types";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import {
   Popover,
   PopoverContent,
@@ -22,8 +23,9 @@ import { toast } from "@/components/ui/use-toast";
 import { useInstances } from "@/hooks/instances/use-instances";
 import { useInstanceGroups } from "@/hooks/use-instance-groups";
 import { userSingleRedirector, useUpdateRedirectorGroups } from "@/hooks/use-redirectors";
+import { cn } from "@/lib/utils";
 import { copyToClipboard } from "@/utils/copy-to-clipboard";
-import { ChevronLeft, CopyIcon, Plus, X, XCircle } from "lucide-react";
+import { Check, ChevronLeft, CopyIcon, Pencil, Plus, X, XCircle } from "lucide-react";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
@@ -109,6 +111,20 @@ export default function Page() {
       redirectorId: id
     });
   }
+
+  const handleEditInviteLink = (groupId: string, inviteLink: string) => {
+    setGroupsInfo((prev) => {
+      const updatedGroups = [...prev];
+      const groupToBeEditedPosition = updatedGroups.findIndex(group => group.id === groupId);
+      if (groupToBeEditedPosition !== -1) {
+        updatedGroups[groupToBeEditedPosition] = {
+          ...updatedGroups[groupToBeEditedPosition],
+          groupInviteLink: inviteLink,
+        };
+      }
+      return updatedGroups;
+    });
+  };
 
   if (redirectorQuery.isLoading) {
     return (
@@ -201,15 +217,25 @@ export default function Page() {
                     return (
                       <div
                         key={chat.id}
-                        className="border rounded-sm p-4 relative"
+                        className="border rounded-sm p-4 relative h-20 flex items-center"
                       >
-                        <Button size="icon" variant="outline" className="absolute rounded-full h-5 w-5 right-2"
-                          onClick={() => handleDeleteGroup(chat.id)}>
-                          <X size={12} />
-                        </Button>
                         <h3 className="text-sm flex items-center gap-x-2">
                           {chat.whatsappName}
                         </h3>
+                        <div className="flex-1 w-full flex justify-end items-center gap-x-4">
+                          <div className="min-w-96 flex items-center gap-x-4">
+                            <Input
+                              value={chat.groupInviteLink || ""}
+                              className={cn("placeholder:text-xs placeholder:text-gray-400")}
+                              placeholder="Link do convite"
+                              onChange={(e) => handleEditInviteLink(chat.id, e.target.value)}
+                            />
+                          </div>
+                          <Button size="icon" variant="outline" className="rounded-full h-5 w-5"
+                            onClick={() => handleDeleteGroup(chat.id)}>
+                            <X size={12} />
+                          </Button>
+                        </div>
                       </div>
                     )
                   })
@@ -262,7 +288,12 @@ export default function Page() {
                 </div>
               )
             }
-            <Button className="w-full mt-8 min-h-16" size="lg" onClick={handleUpdateRedirector}>
+            <Button className="w-full mt-8 min-h-16 space-x-2" size="lg" onClick={handleUpdateRedirector}>
+              {
+                updateRedirectorGroupsMutation.isPending && (
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-refresh-cw animate-spin"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8" /><path d="M21 3v5h-5" /><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16" /><path d="M8 16H3v5" /></svg>
+                )
+              }
               Salvou Grupos no Redirecionador
             </Button>
           </div>
