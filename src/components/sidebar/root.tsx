@@ -32,12 +32,12 @@ const routes = [
     href: "/disparos-rapidos",
     color: "text-[#5528ff]"
   },
-  {
-    label: "Redirecionadores",
-    icon: Split,
-    href: "/redirecionadores",
-    color: "text-[#5528ff]"
-  },
+  // {
+  //   label: "Redirecionadores",
+  //   icon: Split,
+  //   href: "/redirecionadores",
+  //   color: "text-[#5528ff]"
+  // },
   {
     label: "Workflows",
     icon: Workflow,
