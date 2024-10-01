@@ -2,6 +2,8 @@ import { CheckCircle2 } from "lucide-react";
 import { cookies } from "next/headers";
 import { ReactNode } from "react";
 import { SubscribeButton } from "./SubscribeButton";
+import { Badge } from "./ui/badge";
+import { Progress } from "./ui/progress";
 
 type Props = {
   children: ReactNode,
@@ -14,14 +16,28 @@ export async function PermissionGateway({ children, permissions }: Props) {
   const user = await fetch(process.env.NEXT_PUBLIC_API_URL + "/user/who_is", {
     headers: {
       Authorization: `Bearer ${accessToken}`
-    }
+    },
+    cache: "no-cache"
   }).then((response) => response.json());
   const hasRequiredPermissions = (): boolean => {
     return permissions.some((permission) =>
       user.subscriptionLevel.includes(permission)
     )
   }
-  if (hasRequiredPermissions() && user.usage < user.usageLimit) return <>{children}</>;
+  if (hasRequiredPermissions() && user.usage < user.usageLimit) return (
+    <>  
+      <div className="h-12 border-b p-2 flex justify-end items-center gap-x-4">
+        <Badge variant="plan">
+          {user.subscriptionLevel === "FREE" ? "Plano Gratuito" : "PRO"}
+        </Badge>
+        <div className="flex items-center gap-x-2">
+          <Progress className="h-3 w-60 [&>div]:bg-[#5528ff] border" value={(user.usage / user.usageLimit) * 100} />
+          <p className="text-xs">{user.usage} / {user.usageLimit}</p>
+        </div>
+      </div>
+      {children}
+    </>
+  );
   if (hasRequiredPermissions() && user.usage === user.usageLimit) return (
     <div className="h-screen w-full grid place-content-center">
       <div className="grid grid-cols-1 gap-x-4 gap-y-8 p-4">
