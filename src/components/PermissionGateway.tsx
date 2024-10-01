@@ -17,7 +17,7 @@ export async function PermissionGateway({ children, permissions }: Props) {
     headers: {
       Authorization: `Bearer ${accessToken}`
     },
-    cache: "no-cache"
+    cache: "no-store"
   }).then((response) => response.json());
   const hasRequiredPermissions = (): boolean => {
     return permissions.some((permission) =>
