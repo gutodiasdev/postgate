@@ -23,7 +23,6 @@ type FormInput = {
 
 const schema = z.object({
   name: z.string({ required_error: "Nome para instância é obrigatório" }),
-  description: z.string({ required_error: "Descrição para instância é obrigatório" }).optional()
 })
 
 export function CreateInstanceModal(props: CreateInstanceModalProps) {
@@ -33,8 +32,8 @@ export function CreateInstanceModal(props: CreateInstanceModalProps) {
   const mutation = useCreateInstance()
 
   const handleCreateInstance: SubmitHandler<FormInput> = async (values) => {
-    const { name, description } = form.getValues();
-    await mutation.mutateAsync({ name, description });
+    const { name } = form.getValues();
+    await mutation.mutateAsync({ name });
     if (mutation.isSuccess) {
       props.setOpen(false);
     }
@@ -51,19 +50,6 @@ export function CreateInstanceModal(props: CreateInstanceModalProps) {
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Nome da instância</FormLabel>
-                  <FormControl>
-                    <Input {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="description"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Descrição</FormLabel>
                   <FormControl>
                     <Input {...field} />
                   </FormControl>
