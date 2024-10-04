@@ -21,6 +21,7 @@ import { characterLimiter } from "@/utils/character-limiter";
 import useStore from "@/hooks/useStore";
 import useAuthStore from "@/hooks/use-user";
 import axios from "axios";
+import { Tiptap } from "../whatsapp-text-editor/Tiptap";
 
 type Props = {
   workflow: Workflow;
@@ -43,8 +44,6 @@ export function SingleMessagesListPage(props: Props) {
   const user = useStore(useAuthStore, state => state.user);
   const [open, setOpen] = useState(false);
   const [imagePreview, setImagePreview] = useState<string | ArrayBuffer | null>(null);
-  const [imageFile, setImageFile] = useState<File | null>(null);
-  const [imageURL, setImageURL] = useState<string | null>(null);
   const [messageData, setMessageData] = useState<Message | null>(null);
 
   const form = useForm<z.infer<typeof schema>>({
