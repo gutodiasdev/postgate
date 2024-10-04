@@ -21,6 +21,8 @@ import { characterLimiter } from "@/utils/character-limiter";
 import useStore from "@/hooks/useStore";
 import useAuthStore from "@/hooks/use-user";
 import axios from "axios";
+import { Tiptap } from "../whatsapp-text-editor/Tiptap";
+import MessageEditor from "../whatsapp-text-editor/MessageEditor";
 
 type Props = {
   workflow: Workflow;
@@ -43,8 +45,6 @@ export function SingleMessagesListPage(props: Props) {
   const user = useStore(useAuthStore, state => state.user);
   const [open, setOpen] = useState(false);
   const [imagePreview, setImagePreview] = useState<string | ArrayBuffer | null>(null);
-  const [imageFile, setImageFile] = useState<File | null>(null);
-  const [imageURL, setImageURL] = useState<string | null>(null);
   const [messageData, setMessageData] = useState<Message | null>(null);
 
   const form = useForm<z.infer<typeof schema>>({
@@ -111,7 +111,6 @@ export function SingleMessagesListPage(props: Props) {
 
   const handleOpenSheetEditMessage = (messageId: string) => {
     const filteredMessage = messages.filter(message => message.id === messageId);
-    setMessageData(filteredMessage[0]);
     form.setValue("message", filteredMessage[0].data.message);
     setMessageId(messageId);
     if (filteredMessage[0].data.image) setImagePreview(filteredMessage[0].data.image)
@@ -158,6 +157,8 @@ export function SingleMessagesListPage(props: Props) {
     setMessages(updatedMessages);
     setIsDragging(null)
   }
+
+  console.log(form.watch("message"))
 
   return (
     <>
@@ -259,7 +260,7 @@ export function SingleMessagesListPage(props: Props) {
                   <FormItem>
                     <FormLabel>Mensagem</FormLabel>
                     <FormControl>
-                      <Textarea placeholder="Ex.: Grupo de ofertas..." {...field} rows={16} className="resize-none" />
+                      <MessageEditor content={field.value as string} onChange={field.onChange} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
