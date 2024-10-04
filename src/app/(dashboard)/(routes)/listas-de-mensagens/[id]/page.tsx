@@ -21,7 +21,7 @@ export default async function Page({ params }: Props) {
       <PageHeader>
         Lista de Mensagens - {messagesListWorkflow.title}
       </PageHeader>
-      <SingleMessagesListPage workflow={messagesListWorkflow}/>
+      <SingleMessagesListPage workflow={messagesListWorkflow} id={params.id as string}/>
     </section>
   )
 }

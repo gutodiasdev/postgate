@@ -32,9 +32,10 @@ export type RFState = {
   onDragOver: (event: any) => void;
   onDrop: (event: any) => void;
   deleteNode: (id: string) => void;
-  saveFlow: (id: string) => Promise<void>;
+  saveFlow: (id: string, nodes?: Array<{ id: string } & Record<string, unknown>>) => Promise<void>;
   editTextNode: (id: string, values: TextNodeProps) => void;
   editImageNode: (id: string, values: ImageNodeProps) => Promise<void>;
+  editImageSheet: (userId: string, image: File | string) => Promise<{ url: string }>;
   isUploading: boolean;
   setIsUploading: (values: boolean) => void;
 };
@@ -107,9 +108,12 @@ export const useFlowStore = createWithEqualityFn<RFState>((set, get) => ({
     const updatedEdges = edges.filter((edge) => edge.source !== id && edge.target !== id);
     set({ nodes: updatedNodes, edges: updatedEdges });
   },
-  saveFlow: async (id: string) => {
-    const { nodes, edges } = get();
-    await api.put(`/resources/workflows/${id}`, { nodes, edges });
+  saveFlow: async (id: string, nodes?: Array<{ id: string } & Record<string, unknown>>) => {
+    if (!nodes) {
+      const { nodes, edges } = get();
+      await api.put(`/resources/workflows/${id}`, { nodes, edges });
+    }
+    await api.put(`/resources/workflows/${id}`, { nodes });
   },
   editTextNode: (id: string, values: TextNodeProps) => {
     const { nodes } = get();
@@ -148,5 +152,16 @@ export const useFlowStore = createWithEqualityFn<RFState>((set, get) => ({
         return node;
       })
     })
+  },
+  editImageSheet: async (userId: string, image: File | string): Promise<{ url: string }> => {
+    let bodyFormData = new FormData();
+    bodyFormData.append("userId", userId);
+    bodyFormData.append("image", image);
+    set({ isUploading: true });
+    const result = await axios.post("/api/s3-upload", bodyFormData, {
+      headers: { "Content-Type": "multipart/form-data" }
+    });
+    set({ isUploading: false });
+    return { url: result.data.url }
   }
 }));
