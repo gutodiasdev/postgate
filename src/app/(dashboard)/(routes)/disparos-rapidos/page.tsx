@@ -18,6 +18,7 @@ import {
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { toast } from "@/components/ui/use-toast";
+import MessageEditor from "@/components/whatsapp-text-editor/MessageEditor";
 import { useInstances } from "@/hooks/instances/use-instances";
 import { useInstanceGroups } from "@/hooks/use-instance-groups";
 import { useInstantMessage } from "@/hooks/use-instant-message";
@@ -256,9 +257,10 @@ export default function Page() {
           }
           <Label htmlFor="message">Mensagem</Label>
           <div className="flex flex-col items-center lg:min-h-[320px]">
-            <Textarea
-              className="h-96"
-              onChange={(event) => setMessage(event.target.value)}
+            <MessageEditor
+              content={message}
+              onChange={setMessage}
+              adjustHeight
             />
           </div>
           <Button className="w-full space-x-2" onClick={handlePostInstantMessage}>
