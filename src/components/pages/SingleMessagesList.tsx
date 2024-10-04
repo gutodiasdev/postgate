@@ -2,8 +2,8 @@
 
 import { Workflow } from "@/@types"
 import { Button } from "../ui/button";
-import { AlignJustify, Pencil, Plus, SquarePen, Trash, X } from "lucide-react";
-import { ChangeEvent, useState } from "react";
+import { AlignJustify, GripVertical, Pencil, Plus, SquarePen, Trash, X } from "lucide-react";
+import { ChangeEvent, useRef, useState } from "react";
 import { generateNanoID } from "@/lib/nanoid";
 import { useFlowStore } from "@/hooks/use-flow-store";
 import { useMutation } from "@tanstack/react-query";
@@ -147,15 +147,45 @@ export function SingleMessagesListPage(props: Props) {
     });
   }
 
+  const [isDragging, setIsDragging] = useState<number | null>(null);
+  const dragMessage = useRef<number>(0);
+  const dragOverMessage = useRef<number>(0);
+  const handleSort = () => {
+    const updatedMessages = [...messages];
+    const draggedMessage = updatedMessages[dragMessage.current];
+    updatedMessages.splice(dragMessage.current, 1);
+    updatedMessages.splice(dragOverMessage.current, 0, draggedMessage);
+    setMessages(updatedMessages);
+    setIsDragging(null)
+  }
+
   return (
     <>
       <div className="border p-4 rounded-md">
         <div className="w-full px-2 grid gap-y-4">
           {
             messages.map((message, i) => (
-              <div key={i} className="border rounded-md p-4 flex items-center justify-between gap-x-4">
-                <Button size="icon" variant="outline" className="rounded-full cursor-grab">
-                  <AlignJustify size={16} />
+              <div
+                key={i}
+                className={cn("border rounded-md p-4 flex items-center justify-between gap-x-4", isDragging === i ? 'bg-blue-100 border-blue-400' : '')}
+                draggable
+                onDragStart={() => {
+                  dragMessage.current = i;
+                  setIsDragging(i); // Highlight the item being dragged
+                }}
+                onDragEnter={() => {
+                  dragOverMessage.current = i
+                  handleSort();
+                }}
+                onDragEnd={() => setIsDragging(null)}
+                onDragOver={(e) => e.preventDefault()}
+              >
+                <Button
+                  size="icon"
+                  variant="outline"
+                  className={cn("rounded-md cursor-grab z-50 pointer-events-auto", isDragging && "cursor-grabbing")}
+                >
+                  <GripVertical size={16} />
                 </Button>
                 <p className="flex-1">
                   {message.data.message ? characterLimiter(message.data.message, 20) : "Insira sua mensagem..."}
