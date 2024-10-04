@@ -17,8 +17,8 @@ async function uploadFileToS3(file: any, filename: string): Promise<string> {
     image.resize(800, 800);
     return image.getBufferAsync("image/jpeg");
   })
-  const [user, id, originalFileName] = filename.split("_");
-  const key = `${user}_${id}/${Date.now()}_${originalFileName}.jpg`;
+  const [user, id] = filename.split("_");
+  const key = `${filename}/${Date.now()}_${id}.jpg`;
   const params: PutObjectCommandInput = {
     Bucket: S3_BUCKET_NAME,
     Key: key,
@@ -40,7 +40,7 @@ export async function POST(request: NextRequest) {
     }
     const blob = file.slice();
     const arrayBuffer = await new Response(blob).arrayBuffer();
-    const url = await uploadFileToS3(arrayBuffer, userId + "_image");
+    const url = await uploadFileToS3(arrayBuffer, "user_" + userId);
 
     return new NextResponse(JSON.stringify({ success: true, url }), { status: 200 });
   } catch (error: any) {

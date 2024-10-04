@@ -41,24 +41,24 @@ const routes = [
   //   href: "/redirecionadores",
   //   color: "text-[#5528ff]"
   // },
-  {
-    label: "Workflows",
-    icon: Workflow,
-    href: "/workflows",
-    color: "text-[#5528ff]"
-  },
+  // {
+  //   label: "Workflows",
+  //   icon: Workflow,
+  //   href: "/workflows",
+  //   color: "text-[#5528ff]"
+  // },
   {
     label: "Listas de disparo",
     icon: ListChecks,
     href: "/listas-de-disparo",
     color: "text-[#5528ff]"
   },
-  // {
-  //   label: "Listas de mensagens",
-  //   icon: MessageSquareText,
-  //   href: "/listas-de-mensagens",
-  //   color: "text-[#5528ff]"
-  // },
+  {
+    label: "Listas de mensagens",
+    icon: MessageSquareText,
+    href: "/listas-de-mensagens",
+    color: "text-[#5528ff]"
+  },
   // {
   //   label: "Configurações",
   //   icon: Settings,

@@ -39,7 +39,6 @@ export function FlowCalendar() {
   const setScheduleTime = useFlowStore(state => state.setScheduleTime);
   const query = useQueryClient();
   const {
-    nodes,
     scheduleTime
   } = useFlowStore()
   const store = useStore(useAuthStore, (state) => state);
@@ -73,7 +72,7 @@ export function FlowCalendar() {
   const workflowsQuery = useQuery({
     queryKey: ["workflows_lists", store?.user?.id],
     queryFn: async () => {
-      const { data } = await api.get<Workflow[]>("/resources/workflows", { authorization: true });
+      const { data } = await api.get<Workflow[]>("/resources/messages_lists", { authorization: true });
       return data;
     },
     staleTime: 1000 * 60 * 60

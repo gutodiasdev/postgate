@@ -36,7 +36,6 @@ export function ImageNode(data: NodeProps<ImageNodeProps>) {
   const [open, setOpen] = useState(false);
   const [imagePreview, setImagePreview] = useState<string | ArrayBuffer | null>(data.data.image as string);
   const [imageFile, setImageFile] = useState<File | null>(null);
-  const [loading, setLoading] = useState<boolean>(false);
 
   const form = useForm<z.infer<typeof schema>>({
     resolver: zodResolver(schema),
@@ -46,13 +45,11 @@ export function ImageNode(data: NodeProps<ImageNodeProps>) {
   });
 
   const editData: SubmitHandler<FormInput> = (values) => {
-    setLoading(true);
     editImageNode(data.id, {
       userId: "_",
       image: imageFile as File,
       message: values.message?.replace(/\n/g, '\\r\\n') as string
     });
-    setLoading(false);
   }
 
   const handleDeleteNode = () => {
