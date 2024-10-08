@@ -23,6 +23,7 @@ import { useInstances } from "@/hooks/instances/use-instances";
 import { useInstanceGroups } from "@/hooks/use-instance-groups";
 import { useInstantMessage } from "@/hooks/use-instant-message";
 import useAuthStore from "@/hooks/use-user";
+import { characterLimiter } from "@/utils/character-limiter";
 import { Plus, X } from "lucide-react";
 import Image from "next/image";
 import { ChangeEvent, useEffect, useMemo, useState } from "react";
@@ -181,7 +182,7 @@ export default function Page() {
                         <X size={12} />
                       </Button>
                       <h3 className="text-sm flex items-center gap-x-2">
-                        {chat.whatsappName}
+                        {characterLimiter(chat.whatsappName, 32) }
                       </h3>
                     </div>
                   )

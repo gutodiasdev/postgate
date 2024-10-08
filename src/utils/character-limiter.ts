@@ -1,6 +1,6 @@
-export function characterLimiter(text: string, limite: number): string {
-  if (text.length > limite) {
-    return text.slice(0, limite);
+export function characterLimiter(text: string, limit: number): string {
+  if (text.length > limit) {
+    return `${text.slice(0, limit)}...`;
   }
   return text;
 }

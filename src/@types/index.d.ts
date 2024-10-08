@@ -486,3 +486,25 @@ export type DashboardResult = {
     groupsCount: number;
   }
 };
+
+export type SubscriptionWithUser = {
+  id: string;
+  subscriptionLevel: string;
+  usage: 165,
+  usageLimit: 500,
+  usageStartedAt: string | null;
+  stripeCustomerId: string | null;
+  stripeSubscriptionId: string | null;
+  stripePriceId: string | null;
+  stripeCurrentPeriodEnd: string | null;
+  userId: string;
+  createdAt: string;
+  updatedAt: string;
+  user: {
+    id: string;
+    username: string | null;
+    email: string;
+    createdAt: string;
+    updatedAt: string;
+  }
+}
