@@ -7,7 +7,6 @@ import {
   CardHeader,
   CardTitle
 } from "@/components/ui/card";
-import { PermissionGateway } from "@/components/PermissionGateway";
 
 export default async function Page() {
   const cookiesStore = cookies();

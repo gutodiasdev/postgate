@@ -5,6 +5,7 @@ import "./globals.css";
 import Providers from "./providers";
 import { ModalsProvider } from "@/components/modals/provider";
 import { Toaster } from "@/components/ui/toaster";
+import { cn } from "@/lib/utils";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -20,7 +21,7 @@ export default function RootLayout({
   return (
     <Providers> 
         <html lang="pt-br">
-          <body className={inter.className}>
+          <body className={cn(inter.className, "bg-gray-50")}>
             <ModalsProvider />
             <Toaster />
             {children}

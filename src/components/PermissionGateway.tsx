@@ -1,31 +1,33 @@
 import { CheckCircle2 } from "lucide-react";
-import { cookies } from "next/headers";
-import { ReactNode } from "react";
+import { ReactNode, use } from "react";
 import { SubscribeButton } from "./SubscribeButton";
 import { Badge } from "./ui/badge";
 import { Progress } from "./ui/progress";
+import { SubscriptionWithUser } from "@/@types";
+import { redirect } from "next/navigation";
+import { UserProvider } from "@/contexts/UserContext";
 
 type Props = {
   children: ReactNode,
-  permissions: string[]
+  permissions: string[],
+  userPromise: Promise<SubscriptionWithUser | null>
 }
 
-export async function PermissionGateway({ children, permissions }: Props) {
-  const cookiesStorage = cookies();
-  const accessToken = cookiesStorage.get("__postgate.session")?.value;
-  const user = await fetch(process.env.NEXT_PUBLIC_API_URL + "/user/who_is", {
-    headers: {
-      Authorization: `Bearer ${accessToken}`
-    },
-    cache: "no-store"
-  }).then((response) => response.json());
+export async function PermissionGateway({ children, permissions, userPromise }: Props) {
+  const user = await userPromise;
+
+  if (!user) {
+    redirect("/");
+  }
+
   const hasRequiredPermissions = (): boolean => {
     return permissions.some((permission) =>
       user.subscriptionLevel.includes(permission)
     )
   }
+
   if (hasRequiredPermissions() && user.usage < user.usageLimit) return (
-    <>  
+    <UserProvider userData={user}>  
       <div className="h-12 p-2 flex justify-end items-center gap-x-4">
         <Badge variant="plan">
           {user.subscriptionLevel === "FREE" ? "Plano Gratuito" : "PRO"}
@@ -36,9 +38,10 @@ export async function PermissionGateway({ children, permissions }: Props) {
         </div>
       </div>
       {children}
-    </>
+    </UserProvider>
   );
-  if (hasRequiredPermissions() && user.usage === user.usageLimit) return (
+  
+  if (hasRequiredPermissions() && user.usage >= user.usageLimit) return (
     <div className="h-screen w-full grid place-content-center">
       <div className="grid grid-cols-1 gap-x-4 gap-y-8 p-4">
         <h2 className="text-xl max-w-96">
