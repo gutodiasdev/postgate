@@ -7,6 +7,7 @@ import {
   CardHeader,
   CardTitle
 } from "@/components/ui/card";
+import { ManageSubstriptionCard } from "@/components/dashboard/ManageSubscriptionCard";
 
 export default async function Page() {
   const cookiesStore = cookies();
@@ -61,6 +62,7 @@ export default async function Page() {
           </CardContent>
         </Card>
       </div>
+      <ManageSubstriptionCard />
     </section>
   )
 }

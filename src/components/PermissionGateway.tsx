@@ -40,7 +40,7 @@ export async function PermissionGateway({ children, permissions, userPromise }: 
       {children}
     </UserProvider>
   );
-  
+
   if (hasRequiredPermissions() && user.usage >= user.usageLimit) return (
     <div className="h-screen w-full grid place-content-center">
       <div className="grid grid-cols-1 gap-x-4 gap-y-8 p-4">
@@ -56,7 +56,7 @@ export async function PermissionGateway({ children, permissions, userPromise }: 
               R$
             </span>
             <p className="text-7xl font-bold">
-              57,90
+              24,90
             </p>
             <span className="text-sm top-auto flex flex-col justify-end pb-2">
               /mês

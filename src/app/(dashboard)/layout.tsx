@@ -12,7 +12,7 @@ export default async function DashboardLayout({ children }: { children: React.Re
         <Sidebar.Root />
       </div>
       <main className="md:pl-72 w-full">
-        <PermissionGateway permissions={["FREE"]} userPromise={userPromise}>
+        <PermissionGateway permissions={["FREE", "PROFESSIONAL"]} userPromise={userPromise}>
           {children}
         </PermissionGateway>
       </main>

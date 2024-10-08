@@ -5,7 +5,7 @@ import { Button } from "./ui/button";
 
 export function SubscribeButton() {
   return (
-    <Button variant="default" size="lg" onClick={() => onSubscribe("professional")}>
+    <Button variant="default" onClick={() => onSubscribe("professional")}>
       Assinar
     </Button>
   )
