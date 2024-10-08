@@ -20,7 +20,7 @@ export default async function Page() {
   }).then(res => res.json()) as DashboardResult;
 
   return (
-    <section className="space-y-4 md:p-8">
+    <section className="space-y-4">
       <PageHeader>
         Dashboard
       </PageHeader>

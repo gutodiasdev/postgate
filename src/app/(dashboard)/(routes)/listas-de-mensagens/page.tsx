@@ -28,7 +28,7 @@ export default function Page() {
 
   if (isLoading) {
     return (
-      <section className="space-y-4 md:p-8">
+      <section className="space-y-4">
         <PageHeader>
           Listas de Mensagens
         </PageHeader>
@@ -51,12 +51,12 @@ export default function Page() {
 
   return (
     <>
-      <section className="space-y-4 md:p-8">
+      <section className="space-y-4">
         <PageHeader>
           Listas de Mensagens
         </PageHeader>
         <div className="grid gap-4 xl:grid-cols-3 2xl:grid-cols-3">
-          <div className="border-2 p-2 rounded-md flex flex-col gap-2 md:h-80 border-gray-400 border-dashed hover:cursor-pointer hover:bg-slate-100 transition-all ease-in-out" onClick={() => setOpen(true)}>
+          <div className="bg-white border-2 p-2 rounded-md flex flex-col gap-2 md:h-80 border-gray-400 border-dashed hover:cursor-pointer hover:bg-slate-100 transition-all ease-in-out" onClick={() => setOpen(true)}>
             <div className="flex items-center justify-center h-full w-full">
               <div className="flex flex-col items-center">
                 <Plus />
@@ -69,7 +69,7 @@ export default function Page() {
           {data.map((workflow: any) => {
             return (
               <Link key={workflow.id} href={`/listas-de-mensagens/${workflow.id}`}>
-                <div className="border p-4 rounded-md md:h-80 hover:bg-slate-50 transition-all ease-in-out">
+                <div className="bg-white border p-4 rounded-md md:h-80 hover:bg-slate-50 transition-all ease-in-out">
                   <div className="text-center h-full place-content-center">
                     <h2 className="text-xl font-medium">
                       {workflow.title}

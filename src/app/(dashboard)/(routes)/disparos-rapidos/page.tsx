@@ -141,21 +141,21 @@ export default function Page() {
   }
 
   return (
-    <section className="space-y-4 md:p-8">
+    <section className="space-y-4">
       <PageHeader>
         Disparos Rápidos
       </PageHeader>
       <div className="flex items-center gap-x-4">
         <Select onValueChange={(value) => handleSelectInstance(value)}>
-          <SelectTrigger >
+          <SelectTrigger className="bg-white">
             <SelectValue placeholder="Escolha uma conexão" />
           </SelectTrigger>
-          <SelectContent className="">
-            <SelectGroup>
+          <SelectContent className="bg-white">
+            <SelectGroup className="bg-white">
               <SelectLabel>Conexões</SelectLabel>
               {instancesQuery.data?.map((instance: any) => {
                 return (
-                  <SelectItem key={instance.id} value={instance.id}>
+                  <SelectItem key={instance.id} value={instance.id} className="bg-white">
                     <div className="flex items-center gap-x-2">
                       <p>{instance.name}</p>
                     </div>
@@ -167,7 +167,7 @@ export default function Page() {
         </Select>
       </div>
       <div className="grid grid-cols-2 gap-4">
-        <div className="border rounded-md p-6 flex flex-col items-center max-h-[calc(100vh-180px)]">
+        <div className="border rounded-md p-6 flex flex-col items-center max-h-[calc(100vh-180px)] bg-white">
           <ScrollArea className="h-auto w-full rounded-md pl-2 pr-4">
             <div className="grid gap-y-2 my-4 w-full">
               {
@@ -237,12 +237,12 @@ export default function Page() {
             )
           }
         </div>
-        <div className="space-y-4 flex flex-col">
+        <div className="space-y-4 flex flex-col bg-white p-6 border rounded-md">
           {
             imagePreview ? (
               <>
-                <p className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 my-4">Imagem</p>
-                <div className="relative w-full min-h-40 border mb-4">
+                <p className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">Imagem</p>
+                <div className="relative w-full min-h-40 border">
                   <Button size="sm" className="rounded-full absolute z-20 -right-1 -top-1" variant="destructive" onClick={handleRemoveImage}>
                     <X size={12} />
                   </Button>
@@ -250,7 +250,7 @@ export default function Page() {
                 </div>
               </>
             ) : (
-              <div className="grid w-full max-w-sm items-center gap-1.5 y-4 my-4">
+              <div className="flex flex-col w-full max-w-sm gap-4 y-4 mb-4 min-h-40">
                 <Label htmlFor="picture">Imagem</Label>
                 <Input id="picture" type="file" onChange={handleImageChange} />
               </div>
@@ -261,7 +261,6 @@ export default function Page() {
             <MessageEditor
               content={message}
               onChange={setMessage}
-              adjustHeight
             />
           </div>
           <Button className="w-full space-x-2" onClick={handlePostInstantMessage}>

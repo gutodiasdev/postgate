@@ -38,7 +38,7 @@ export default function Page() {
   }, [query.data])
 
   if (query.isLoading) {
-    return <section className="space-y-4 md:p-8">
+    return <section className="space-y-4">
       <div className="flex items-center justify-between">
         <h1 className="md:text-xl font-bold text-gray-800">
           Agendamentos
@@ -59,11 +59,11 @@ export default function Page() {
 
   if (query.isError) {
     return (
-      <section className="p-4 md:p-8">
+      <section className="p-4">
         <h1 className="text-xl font-bold text-gray-800">
           Listas de disparo
         </h1>
-        <div className="w-full h-96 flex flex-col items-center justify-center my-8 gap-y-4">
+        <div className="w-full h-96 flex flex-col items-center justify-center my-8 gap-y-4 bg-white">
           <XCircle />
           <span>Ocorreu algum erro, tente novamente</span>
           <Button variant="outline" onClick={handleRefetchQuery}>
@@ -75,7 +75,7 @@ export default function Page() {
   }
 
   return (
-    <section className="space-y-4 md:p-8">
+    <section className="space-y-4">
       <div className="flex items-center justify-between">
         <h1 className="md:text-xl font-bold text-gray-800">
           Agendamentos
