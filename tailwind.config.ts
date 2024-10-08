@@ -21,6 +21,7 @@ const config = {
     },
     extend: {
       colors: {
+        postgate: "#5528FF",
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",

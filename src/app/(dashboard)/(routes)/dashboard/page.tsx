@@ -7,7 +7,7 @@ import {
   CardHeader,
   CardTitle
 } from "@/components/ui/card";
-import { PermissionGateway } from "@/components/PermissionGateway";
+import { ManageSubstriptionCard } from "@/components/dashboard/ManageSubscriptionCard";
 
 export default async function Page() {
   const cookiesStore = cookies();
@@ -20,7 +20,7 @@ export default async function Page() {
   }).then(res => res.json()) as DashboardResult;
 
   return (
-    <section className="space-y-4 md:p-8">
+    <section className="space-y-4">
       <PageHeader>
         Dashboard
       </PageHeader>
@@ -62,6 +62,7 @@ export default async function Page() {
           </CardContent>
         </Card>
       </div>
+      <ManageSubstriptionCard />
     </section>
   )
 }

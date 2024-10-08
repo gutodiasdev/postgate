@@ -16,6 +16,7 @@ import { setCookie } from "cookies-next";
 import { useRouter } from "next/navigation";
 import useStore from "@/hooks/useStore";
 import useAuthStore from "@/hooks/use-user";
+import Link from "next/link";
 
 const schema = z.object({
   email: z.string({ required_error: "Email é obrigatório" }).email("Insira um email válido"),
@@ -66,7 +67,7 @@ export default function Page() {
   return (
     <div className="items-center w-full mx-10 2xl:max-w-screen-2xl 2xl:mx-auto">
       <Form {...form}>
-        <form className="w-96 mx-auto my-20 space-y-16" onSubmit={form.handleSubmit(onSubmit)}>
+        <form className="w-96 mx-auto mt-20 space-y-16" onSubmit={form.handleSubmit(onSubmit)}>
           <h2 className="text-2xl font-bold">
             Login
           </h2>
@@ -118,6 +119,27 @@ export default function Page() {
           </Button>
         </form>
       </Form>
+      <div className="mt-6 w-96 mx-auto">
+        <div className="relative">
+          <div className="absolute inset-0 flex items-center">
+            <div className="w-full border-t border-gray-300" />
+          </div>
+          <div className="relative flex justify-center text-sm">
+            <span className="px-2 bg-white text-gray-500">
+              Ainda não possui uma conta?
+            </span>
+          </div>
+        </div>
+
+        <div className="mt-6">
+          <Link
+            href="/cadastrar-se"
+            className="w-full flex justify-center py-2 px-4 border border-gray-300 rounded-full shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-postgate"
+          >
+            Crie uma nova conta
+          </Link>
+        </div>
+      </div>
     </div>
   );
 }

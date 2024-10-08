@@ -77,7 +77,7 @@ export function Root() {
   }
 
   return (
-    <div className="space-y-4 py-4 flex flex-col h-full bg-gray-100">
+    <div className="space-y-4 py-4 flex flex-col h-full">
       <div className="px-3 py-2 flex-1">
         <Link href={"/dashboard"} className="flex items-center pl-3 mb-14 md:mb-7">
           <div className="relative w-32 h-8 mr-4 md:w-24">
@@ -95,10 +95,12 @@ export function Root() {
           ))}
         </div>
       </div>
-      <Button variant="ghost" onClick={handleLogout}>
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-log-out mr-2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" /><polyline points="16 17 21 12 16 7" /><line x1="21" x2="9" y1="12" y2="12" /></svg>
-        Sair
-      </Button>
+      <div className="flex w-full">
+        <Button variant="ghost" onClick={handleLogout}>
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-log-out mr-2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" /><polyline points="16 17 21 12 16 7" /><line x1="21" x2="9" y1="12" y2="12" /></svg>
+          Sair
+        </Button>
+      </div>
     </div>
   )
 }

@@ -25,7 +25,7 @@ export default function Page() {
 
   if (isLoading) {
     return (
-      <section className="space-y-4 md:p-8">
+      <section className="space-y-4">
         <h1 className="text-xl font-bold text-gray-800">
           Contas
         </h1>
@@ -45,7 +45,7 @@ export default function Page() {
 
   if (isError) {
     return (
-      <section className="space-y-4 md:p-8">
+      <section className="space-y-4">
         <h1 className="text-xl font-bold text-gray-800">
           Contas
         </h1>
@@ -62,7 +62,7 @@ export default function Page() {
 
   return (
     <>
-      <section className="space-y-4 md:p-8">
+      <section className="space-y-4">
         <div className="flex items-center justify-between">
           <PageHeader>
             Contas

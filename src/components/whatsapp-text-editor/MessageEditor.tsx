@@ -96,7 +96,7 @@ const MessageEditor = (props: Props) => {
         </div>
       )}
       <Textarea
-        className={cn(props.adjustHeight && "lg:h-96")}
+        className={cn("h-64", props.adjustHeight && "lg:h-96")}
         value={props.content}
         onChange={handleTextareaChange}
         onSelect={(e: any) => {
