@@ -26,7 +26,7 @@ export async function PermissionGateway({ children, permissions }: Props) {
   }
   if (hasRequiredPermissions() && user.usage < user.usageLimit) return (
     <>  
-      <div className="h-12 border-b p-2 flex justify-end items-center gap-x-4">
+      <div className="h-12 p-2 flex justify-end items-center gap-x-4">
         <Badge variant="plan">
           {user.subscriptionLevel === "FREE" ? "Plano Gratuito" : "PRO"}
         </Badge>

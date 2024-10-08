@@ -14,6 +14,7 @@ import { api } from "@/lib/axios";
 import { toast } from "@/components/ui/use-toast";
 import { useRouter } from "next/navigation";
 import { setCookie } from "cookies-next";
+import Link from "next/link";
 
 const schema = z.object({
   name: z.string().optional(),
@@ -59,7 +60,7 @@ export default function Page() {
   return (
     <div className="items-center w-full mx-10 2xl:max-w-screen-2xl 2xl:mx-auto">
       <Form {...form}>
-        <form className="w-96 mx-auto my-20 space-y-16" onSubmit={form.handleSubmit(onSubmit)}>
+        <form className="w-96 mx-auto mt-20 space-y-10" onSubmit={form.handleSubmit(onSubmit)}>
           <h2 className="text-2xl font-bold">
             Cadastrar-se
           </h2>
@@ -137,6 +138,27 @@ export default function Page() {
           </Button>
         </form>
       </Form>
+      <div className="mt-6 w-96 mx-auto">
+        <div className="relative">
+          <div className="absolute inset-0 flex items-center">
+            <div className="w-full border-t border-gray-300" />
+          </div>
+          <div className="relative flex justify-center text-sm">
+            <span className="px-2 bg-white text-gray-500">
+              Já tenho uma conta
+            </span>
+          </div>
+        </div>
+
+        <div className="mt-6">
+          <Link
+            href="/login"
+            className="w-full flex justify-center py-2 px-4 border border-gray-300 rounded-full shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-postgate"
+          >
+            Fazer login
+          </Link>
+        </div>
+      </div>
     </div>
   );
 }
