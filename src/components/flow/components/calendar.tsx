@@ -82,11 +82,16 @@ export function FlowCalendar() {
     await mutation.mutateAsync();
   }
 
+  const handleQueriesInvalidation = () => {
+    query.invalidateQueries({ queryKey: ["workflows_lists", store?.user?.id] });
+    query.invalidateQueries({ queryKey: ["schedule_sending_lists", store?.user?.id] });
+  }
+
   return (
     <>
       <Dialog>
         <DialogTrigger asChild>
-          <Button variant="outline" className="rounded-full flex items-center justify-center gap-4">
+          <Button variant="outline" className="rounded-full flex items-center justify-center gap-4" onClick={handleQueriesInvalidation}>
             <CalendarDays size={16} />
             Criar Agendamento
           </Button>
