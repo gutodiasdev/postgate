@@ -17,6 +17,7 @@ export default function Page() {
   const store = useStore(useAuthStore, state => state);
   const [scheduled, setScheduled] = useState<SchedulingType[]>([]);
   const [disabledScheduled, setDisabledScheduled] = useState<SchedulingType[]>([]);
+  
   const query = useQuery({
     queryKey: ["scheduled_agenda", store?.user?.id],
     queryFn: async () => {
